@@ -20,3 +20,5 @@ venv/
 *.njsproj
 *.sln
 *.swp
+
+__pycache__/
