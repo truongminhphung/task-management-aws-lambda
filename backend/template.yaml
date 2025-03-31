@@ -1,0 +1,19 @@
+LoginFunction:
+  Type: AWS::Serverless::Function
+  Properties:
+    Handler: handlers.auth.login.lambda_handler
+    Runtime: python3.10
+    Environment:
+      Variables:
+        JWT_SECRET: !Ref JWTSecretParameter
+        DB_HOST: !Ref DBHost
+        DB_NAME: !Ref DBName
+        DB_USER: !Ref DBUser
+        DB_PASSWORD: !Ref DBPassword
+        DB_PORT: "5432"
+    Events:
+      LoginApi:
+        Type: Api
+        Properties:
+          Path: /login
+          Method: POST
