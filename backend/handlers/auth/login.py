@@ -31,6 +31,7 @@ def lambda_handler(event, context):
             return create_error_response(400, validation_error)
         
         # Use context manager for database connection
+        user = None
         try:
             with db_connection(
                 host=config.DB_HOST,
@@ -46,7 +47,7 @@ def lambda_handler(event, context):
         except Exception as db_error:
             logging.error(f"Database error: {db_error}")
             return create_error_response(500, error_messages.DATABASE_CONNECTION_FAILED)
-
+        
         # Check if user exists and verify password
         if not user:
             return create_error_response(401, error_messages.INVALID_CREDENTIALS)
@@ -54,7 +55,7 @@ def lambda_handler(event, context):
         user_id, db_user_name, password_hash = user
         if not bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8')):
             return create_error_response(401, error_messages.INVALID_CREDENTIALS)
-            
+
         # Generate JWT token
         jwt_token = generate_jwt(payload={"user_id": user_id, "username": db_user_name}, secret=config.JWT_SECRET)
 
