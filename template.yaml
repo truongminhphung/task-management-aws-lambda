@@ -1,0 +1,27 @@
+Resources:
+  CommonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/common/
+      CompatibleRuntimes:
+        - python3.10
+    Metadata:
+      BuildMethod: python3.10
+
+  LoginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers.auth.login.lambda_handler
+      Runtime: python3.10
+      Layers:
+        - !Ref CommonLayer
+
+  LogoutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: backend/
+      Handler: handlers.auth.logout.lambda_handler
+      Runtime: python3.10
+      Layers:
+        - !Ref CommonLayer

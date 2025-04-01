@@ -29,7 +29,7 @@ def lambda_handler(event, context):
         return create_success_response(
             http_status.OK,
             "Logout successful",
-            headers={
+            additional_headers={
                 "Set-Cookie": cookie,  # Set the cookie in the response
                 "Content-Type": "application/json"
             }
