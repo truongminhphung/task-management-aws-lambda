@@ -17,7 +17,6 @@ def test_successful_logout(logout_event):
     """Test that logout returns successful response with cookie cleared."""
     # Act
     response = lambda_handler(logout_event, None)
-    print("print response: ", response)
     # Assert
     assert response["statusCode"] == http_status.OK
     assert json.loads(response["body"]) == "Logout successful"
