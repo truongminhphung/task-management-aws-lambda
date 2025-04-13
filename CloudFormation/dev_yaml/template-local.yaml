@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Local API and Lambda setup for testing
+
+Resources:
+  LocalPythonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: LocalPythonLayer
+      Description: Local Python layer for testing
+      ContentUri: ../../WebApp/backend/lib/python.zip
+      CompatibleRuntimes:
+        - python3.10
+      LicenseInfo: MIT
+  
+  LocalLambdaCommonLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: LocalLambdaCommonLayer
+      Description: Utility functions for local Lambda testing
+      ContentUri: ../../WebApp/backend/commonUtil
+      CompatibleRuntimes:
+        - python3.10
+      LicenseInfo: MIT
+    
+  LoginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/auth
+      Handler: login.lambda_handler
+      Timeout: 500
+      Runtime: python3.10
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/login
+            Method: POST
+    Metadata:
+      SamResourceId: LoginFunction
