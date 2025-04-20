@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
+    user_id UUID PRIMARY KEY NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -10,11 +10,27 @@ CREATE TABLE users (
 );
 
 CREATE TABLE tasks (
-    task_id SERIAL PRIMARY KEY,
+    task_id UUID PRIMARY KEY NOT NULL,
     user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
     description VARCHAR(255) NOT NULL,
     due_date DATE,
     status VARCHAR(20) NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO users (user_id, username, email, password_hash)
+VALUES (
+    'b613bb6c-77e8-439d-890c-f9203f6bc70a',
+    'testuser',
+    'testuser@gmail.com',
+    '$$2b$$12$$examplehash'
+);
+INSERT INTO users (user_id, username, email, password_hash)
+VALUES (
+    'b613bb6c-77e8-439d-890c-f9203f6bc70a',
+    'userabc',
+    'testuser@gmail.com',
+    'abc123456'
 );
