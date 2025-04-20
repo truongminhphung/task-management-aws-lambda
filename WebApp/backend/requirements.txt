@@ -1,0 +1,6 @@
+bcrypt
+pyjwt
+boto3
+pytest
+pytest-cov
+# psycopg2-binary
