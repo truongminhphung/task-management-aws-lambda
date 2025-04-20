@@ -4,13 +4,13 @@ class Config:
     """
     Configuration class for the application.
     """
-    DB_HOST = os.environ.get("DB_HOST")
-    DB_NAME = os.environ.get("DB_NAME")
-    DB_USER = os.environ.get("DB_USER")
-    DB_PASSWORD = os.environ.get("DB_PASSWORD")
+    DB_HOST = os.environ.get("DB_HOST", "task_management_db")
+    DB_NAME = os.environ.get("DB_NAME", "tasks-db")
+    DB_USER = os.environ.get("DB_USER", "postgres")
+    DB_PASSWORD = os.environ.get("DB_PASSWORD", "password")
     DB_PORT = os.environ.get("DB_PORT", "5432")  # Default to 5432 if not set
 
-    JWT_SECRET = os.environ.get("JWT_SECRET")
+    JWT_SECRET = os.environ.get("JWT_SECRET", "1234567890")
 
 
     @classmethod
