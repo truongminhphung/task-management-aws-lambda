@@ -1,4 +1,4 @@
-#!/home/tmp/Documents/my_project/task-management-aws-lambda/myvenv/bin/python3.12
+#!/home/phung/shared_py_envs/shared_py312/bin/python3.12
 
 import sys
 import json

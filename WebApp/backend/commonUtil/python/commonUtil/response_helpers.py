@@ -1,6 +1,6 @@
 import json
-from constants.app_constants import app_constants
-from constants.http_status import http_status
+from commonUtil.constants.app_constants import app_constants
+from commonUtil.constants.http_status import http_status
 
 def create_error_response(status_code, error_message):
     """

@@ -1,6 +1,6 @@
 import jwt
 import time
-from constants.app_constants import app_constants
+from commonUtil.constants.app_constants import app_constants
 
 
 def generate_jwt(payload, secret) -> str:

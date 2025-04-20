@@ -1,5 +1,5 @@
-from constants.app_constants import app_constants
-from constants.error_messages import error_messages
+from commonUtil.constants.app_constants import app_constants
+from commonUtil.constants.error_messages import error_messages
 
 def validate_login_input(username, password):
     """

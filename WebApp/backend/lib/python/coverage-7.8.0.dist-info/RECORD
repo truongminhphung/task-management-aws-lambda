@@ -1,11 +1,11 @@
-../../bin/coverage,sha256=HX87hhvsXdOB97eJvdLkzq-J2lHzeQms3R0PKrqVVkM,278
-../../bin/coverage-3.10,sha256=HX87hhvsXdOB97eJvdLkzq-J2lHzeQms3R0PKrqVVkM,278
-../../bin/coverage3,sha256=HX87hhvsXdOB97eJvdLkzq-J2lHzeQms3R0PKrqVVkM,278
+../../bin/coverage,sha256=ezSvEtSHXmqezNDVE1s7-1h4pv8J9ar8kpGFORYu2h0,253
+../../bin/coverage-3.12,sha256=ezSvEtSHXmqezNDVE1s7-1h4pv8J9ar8kpGFORYu2h0,253
+../../bin/coverage3,sha256=ezSvEtSHXmqezNDVE1s7-1h4pv8J9ar8kpGFORYu2h0,253
 coverage-7.8.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
 coverage-7.8.0.dist-info/METADATA,sha256=vNQ_l80B1UPTewQO8CrK3vfa6T-HV-PC0OFy2caTl5I,8482
 coverage-7.8.0.dist-info/RECORD,,
-coverage-7.8.0.dist-info/WHEEL,sha256=KdTi7XeIWXtIeVtfACiB1F4d7bOkIW53tgfbWVKoRWE,224
-coverage-7.8.0.dist-info/entry_points.txt,sha256=-SeH-nlgTLEWW1cmyqqCQneSw9cKYQOUHBXXYO-OWdY,123
+coverage-7.8.0.dist-info/WHEEL,sha256=-4j6_85hz7vS0nmCvezvbEuTeQb11wMH37cecvfScSI,224
+coverage-7.8.0.dist-info/entry_points.txt,sha256=s7x_4Bg6sI_AjEov0yLrWDOVR__vCWpFoIGw-MZk2qA,123
 coverage-7.8.0.dist-info/licenses/LICENSE.txt,sha256=DVQuDIgE45qn836wDaWnYhSdxoLXgpRRKH4RuTjpRZQ,10174
 coverage-7.8.0.dist-info/top_level.txt,sha256=BjhyiIvusb5OJkqCXjRncTF3soKF-mDOby-hxkWwwv0,9
 coverage/__init__.py,sha256=szCyTaayTW2hcA1a5kwR0Qnx_6EIB3fzZHvobukm3Bw,1043
@@ -97,7 +97,7 @@ coverage/sqlitedb.py,sha256=d3sfaDQVtWYo5R4QRaQk9VKEWj5YNsJjpizAhuE5HFE,9700
 coverage/sysmon.py,sha256=MmBGy13i6ROs0p9NhoIPfGa4t3OODWMKWP_Aja8o7_o,16914
 coverage/templite.py,sha256=SL1v7qYoUOu0dwMVbgUn_uR0dJblUIYeuW8lrkMw_UE,10808
 coverage/tomlconfig.py,sha256=IX-6q3vYx1AdLhxVLMjpJM8tO6nXhN-SHcriMx3aBQE,7591
-coverage/tracer.cpython-310-x86_64-linux-gnu.so,sha256=lWAEUIWbokBVl2t3gre4irkwLBoHlayGyi3hB6fkdRU,111000
+coverage/tracer.cpython-312-x86_64-linux-gnu.so,sha256=UOf4JGFyvs0j6SJkax5VDYIpG48CkpwE_VnOgxb8v1U,124856
 coverage/tracer.pyi,sha256=-bNlSGdyssRTRcPiq6bZM0V0w866X0C4UWP05gh428Y,1203
 coverage/types.py,sha256=Uj8q3YVRSOZldzT3CCsGtdYg1Jkr7KkBSH4zxFSCtRQ,5788
 coverage/version.py,sha256=7fln2kTyA5FOCc-NFNZROQnvBNpdvmh60wR3wCX5M0U,1431

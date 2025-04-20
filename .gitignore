@@ -22,3 +22,5 @@ venv/
 *.swp
 
 __pycache__/
+
+WebApp/backend/lib/python/
