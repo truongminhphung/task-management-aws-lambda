@@ -4,10 +4,10 @@ import bcrypt
 import jwt
 import logging
 
-from commonUtil.db import db_connection
+from commonUtil.db import get_cursor # Import get_cursor instead of get_db_session
 from commonUtil.auth import generate_jwt
 from commonUtil.validators import validate_login_input
-from commonUtil.config import config
+from commonUtil.config import config # Keep config for JWT_SECRET
 from commonUtil.constants.app_constants import app_constants
 from commonUtil.constants.error_messages import error_messages
 from commonUtil.constants.http_status import http_status
@@ -32,20 +32,14 @@ def lambda_handler(event, context):
         if validation_error:
             return create_error_response(400, validation_error)
         
-        # Use context manager for database connection
+        # Use single context manager for both database connection and cursor
         user = None
         try:
-            with db_connection(
-                host=config.DB_HOST,
-                database=config.DB_NAME,
-                user=config.DB_USER,
-                password=config.DB_PASSWORD,
-                port=config.DB_PORT
-            ) as conn:
-                with conn.cursor() as cursor:
-                    # Fetch the user from the database
-                    cursor.execute("SELECT user_id, username, password_hash FROM users WHERE username = %s", (username,))
-                    user = cursor.fetchone()
+            # Use the new get_cursor context manager
+            with get_cursor() as cursor:
+                # Fetch the user from the database
+                cursor.execute("SELECT user_id, username, password_hash FROM users WHERE username = %s", (username,))
+                user = cursor.fetchone()
         except Exception as db_error:
             logging.error(f"Database error: {db_error}")
             return create_error_response(500, error_messages.DATABASE_CONNECTION_FAILED)

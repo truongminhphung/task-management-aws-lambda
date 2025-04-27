@@ -1,3 +1,4 @@
+import enum
 
 # Application-specific constants
 class AppConstants:
@@ -10,6 +11,15 @@ class AppConstants:
     COOKIE_PATH = "/"  # Path for the cookie
     COOKIE_SAMESITE = "Strict"  # SameSite attribute for the cookie
 
+
+class TaskStatus(enum.Enum):
+    """
+    Enum for task status.
+    """
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    OVERDUE = "overdue"
 
 # singleton instance for application constants
 app_constants = AppConstants()

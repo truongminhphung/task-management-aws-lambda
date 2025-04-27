@@ -1,26 +1,5 @@
 
 # Centralized error messages with meaningful names
-"""
-    if not username or not password:
-        return error_messages.MISSING_FIELDS
-    
-    if len(username) < 3 or len(username) > 20:
-        return "Username must be between 3 and 20 characters."
-    
-    if len(password) < 8 or len(password) > 20:
-        return "Password must be between 8 and 20 characters."
-    
-    if not any(char.isdigit() for char in password):
-        return "Password must contain at least one digit."
-    
-    if not any(char.isalpha() for char in password):
-        return "Password must contain at least one letter."
-    
-    # if not any(char in "!@#$%^&*()-_=+[]{};:,.<>?/" for char in password):
-    #     return "Password must contain at least one special character."
-    
-    return None
-"""
 class ErrorMessages:
     INVALID_CREDENTIALS = "Invalid username or password"
     INVALID_JSON = "Invalid JSON format"
@@ -37,7 +16,16 @@ class ErrorMessages:
     USER_UPDATE_FAILED = "User update failed"
     USER_DELETION_FAILED = "User deletion failed"
     INTERNAL_ERROR = "Internal server error: {}"  # Placeholder for dynamic error details
-
+    MISSING_DESCRIPTION = "Task description is required"
+    INVALID_DESCRIPTION = "Task description must be between 1 and 255 characters"
+    INVALID_TASK_STATUS = "Invalid task status"
+    INVALID_DUE_DATE = "Invalid due date format. Expected format: YYYY-MM-DD"
+    DUE_DATE_IN_PAST = "Due date cannot be in the past"
+    MiSSING_AUTH_TOKEN = "Missing authentication token in request headers"
+    JWT_EXPIRED = "JWT token has expired"
+    JWT_INVALID = "JWT token is invalid"
+    TASK_CREATION_FAILED = "Task creation failed"
+    TASK_CREATION_SUCCESS = "Task created successfully"
 
 # Singleton instance for convenience
 error_messages = ErrorMessages()
