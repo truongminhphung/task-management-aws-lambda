@@ -1,0 +1,7 @@
+To create ReactJS app: npx create-react-app frontend
+
+You’ll need Axios for API requests and React Router for navigation:
+npm install axios react-router-dom
+- Axios: For making HTTP requests to your backend.
+- React Router: To handle routing between the login page and homepage.
+

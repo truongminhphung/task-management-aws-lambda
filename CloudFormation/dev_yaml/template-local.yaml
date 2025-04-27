@@ -2,6 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Local API and Lambda setup for testing
 
+
+Globals:
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+      AllowHeaders: "'Content-Type,Authorization,X-Requested-With'"
+      AllowOrigin: "'http://localhost:3001'"
+      AllowCredentials: true
+      
 Resources:
   LocalPythonLayer:
     Type: AWS::Serverless::LayerVersion

@@ -32,8 +32,10 @@ def get_default_headers():
     """
     return {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",  # Adjust as needed for CORS
-        "Access-Control-Allow-Credentials": "true"
+        "Access-Control-Allow-Origin": "*",  # Updated to match frontend origin
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
     }
 
 def generate_auth_cookie(jwt_token):

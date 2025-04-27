@@ -19,7 +19,9 @@ def lambda_handler(event, context):
     AWS Lambda handler for POST /login endpoint.
     Verifies user credentials and returns a JWT in an HTTP-only cookie.
     """
+        
     try:
+        print("Received event:", event)
         # Parse the request body
         body = json.loads(event["body"])
         username = body.get("username")
