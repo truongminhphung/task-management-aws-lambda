@@ -10,6 +10,15 @@ Globals:
       AllowHeaders: "'Content-Type,Authorization,X-Requested-With'"
       AllowOrigin: "'http://localhost:3001'"
       AllowCredentials: true
+  Function:
+    Environment:
+      Variables:
+        DB_HOST: "task_management_db"
+        DB_NAME: "tasks-db"
+        DB_USER: "postgres"
+        DB_PASSWORD: "password"
+        DB_PORT: "5432"
+        JWT_SECRET: "your-secret-key-for-local-development"
       
 Resources:
   LocalPythonLayer:
@@ -27,7 +36,7 @@ Resources:
     Properties:
       LayerName: LocalLambdaCommonLayer
       Description: Utility functions for local Lambda testing
-      ContentUri: ../../WebApp/backend/commonUtil
+      ContentUri: ../../WebApp/backend/commonUtil_layer.zip
       CompatibleRuntimes:
         - python3.12
       LicenseInfo: MIT
@@ -50,3 +59,22 @@ Resources:
             Method: POST
     Metadata:
       SamResourceId: LoginFunction
+
+  CreateTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/tasks
+      Handler: create_task.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/tasks
+            Method: POST
+    Metadata:
+      SamResourceId: CreateTaskFunction

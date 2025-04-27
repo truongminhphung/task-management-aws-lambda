@@ -13,3 +13,7 @@ def generate_jwt(payload, secret) -> str:
     # Generate the JWT token
     token = jwt.encode(payload, secret, algorithm=app_constants.JWT_ALGORITHM)
     return token
+
+def validate_jwt(payload, secret):
+    """Validates a JWT and returns the decoded payload."""
+    
