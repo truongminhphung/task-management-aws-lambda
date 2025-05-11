@@ -9,8 +9,7 @@ from commonUtil.constants.app_constants import app_constants, TaskStatus
 from commonUtil.db import get_cursor # Import get_cursor instead of get_db_session
 from commonUtil.validators import validate_task_input
 from commonUtil.auth import validate_jwt
-# config is no longer needed here if only used for DB connection
-# from commonUtil.config import config 
+from commonUtil.config import config 
 
 def lambda_handler(event, context):
     """
@@ -44,7 +43,7 @@ def lambda_handler(event, context):
 
         # Verify token and get user_id
         try:
-            payload = validate_jwt(token)
+            payload = validate_jwt(token, config.JWT_SECRET)
             user_id = payload.get("user_id")
             if not user_id:
                 return create_error_response(http_status.UNAUTHORIZED, error_messages.INVALID_CREDENTIALS)

@@ -21,7 +21,6 @@ def lambda_handler(event, context):
     """
         
     try:
-        print("Received event:", event)
         # Parse the request body
         body = json.loads(event["body"])
         username = body.get("username")
