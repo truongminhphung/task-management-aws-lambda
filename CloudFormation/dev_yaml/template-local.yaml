@@ -18,7 +18,7 @@ Globals:
         DB_USER: "postgres"
         DB_PASSWORD: "password"
         DB_PORT: "5432"
-        JWT_SECRET: "your-secret-key-for-local-development"
+        JWT_SECRET: "K8pEr3Vx7Qz9JyB2sT5nM4cF1hG6aD0wL3iR8oUv"
       
 Resources:
   LocalPythonLayer:
