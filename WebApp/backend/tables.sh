@@ -11,7 +11,7 @@ CREATE TABLE users (
 
 CREATE TABLE tasks (
     task_id UUID PRIMARY KEY NOT NULL,
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
     description VARCHAR(255) NOT NULL,
     due_date DATE,
     status VARCHAR(20) NOT NULL DEFAULT 'pending',
