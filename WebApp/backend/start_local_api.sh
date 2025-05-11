@@ -11,5 +11,6 @@ echo "Starting SAM local API with warm containers..."
 sam local start-api \
   --template ../../CloudFormation/dev_yaml/template-local.yaml \
   --docker-network task_management_network \
-
+  # --warm-containers EAGER
+  
 # Note: The --warm-containers EAGER option keeps containers warm to reduce cold start time
