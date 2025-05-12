@@ -16,4 +16,4 @@ def generate_jwt(payload, secret) -> str:
 
 def validate_jwt(payload, secret):
     """Validates a JWT and returns the decoded payload."""
-    
+    return jwt.decode(payload, secret, algorithms=[app_constants.JWT_ALGORITHM])

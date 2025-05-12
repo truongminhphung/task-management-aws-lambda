@@ -78,3 +78,22 @@ Resources:
             Method: POST
     Metadata:
       SamResourceId: CreateTaskFunction
+    
+  GetTasksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/tasks
+      Handler: get_tasks.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/tasks
+            Method: GET
+    Metadata:
+      SamResourceId: GetTasksFunction
