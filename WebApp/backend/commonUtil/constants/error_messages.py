@@ -21,7 +21,7 @@ class ErrorMessages:
     INVALID_TASK_STATUS = "Invalid task status"
     INVALID_DUE_DATE = "Invalid due date format. Expected format: YYYY-MM-DD"
     DUE_DATE_IN_PAST = "Due date cannot be in the past"
-    MiSSING_AUTH_TOKEN = "Missing authentication token in request headers"
+    MISSING_AUTH_TOKEN = "Missing authentication token in request headers"
     JWT_EXPIRED = "JWT token has expired"
     JWT_INVALID = "JWT token is invalid"
     TASK_CREATION_FAILED = "Task creation failed"
