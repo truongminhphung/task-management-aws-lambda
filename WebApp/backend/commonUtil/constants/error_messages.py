@@ -26,6 +26,9 @@ class ErrorMessages:
     JWT_INVALID = "JWT token is invalid"
     TASK_CREATION_FAILED = "Task creation failed"
     TASK_CREATION_SUCCESS = "Task created successfully"
+    MISSING_TASK_ID = "Task ID is required"
+    TASK_NOT_FOUND = "Task not found"
+    TASK_DELETION_FAILED = "Task deletion failed"
 
 # Singleton instance for convenience
 error_messages = ErrorMessages()

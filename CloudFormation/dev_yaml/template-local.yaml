@@ -97,3 +97,22 @@ Resources:
             Method: GET
     Metadata:
       SamResourceId: GetTasksFunction
+
+  DeleteTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/tasks
+      Handler: delete_task.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/tasks/{task_id}
+            Method: DELETE
+    Metadata:
+      SamResourceId: DeleteTaskFunction
