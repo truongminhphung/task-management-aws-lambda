@@ -59,12 +59,18 @@ def lambda_handler(event, context):
 
 
 def extract_token_from_cookie(event):
-    """Extract JWT token from request cookies."""
-    auth_header = event.get("headers", {}).get("Cookie")
-    if not auth_header:
-        return None
-        
-    for cookie in auth_header.split(";"):
-        if cookie.strip().startswith("token="):
-            return cookie.strip().split("=")[1]
+    """Extract JWT token from request cookies or Authorization header."""
+    # Check if token is in cookies
+    headers = event.get("headers", {})
+    cookie_header = headers.get("Cookie") or headers.get("cookie")
+    if cookie_header:
+        for cookie in cookie_header.split(";"):
+            if cookie.strip().startswith("token="):
+                return cookie.strip().split("=")[1]
+    
+    # Check if token is in Authorization header (Bearer token)
+    auth_header = headers.get("Authorization") or headers.get("authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        return auth_header[7:]  # Remove "Bearer " prefix
+    
     return None
