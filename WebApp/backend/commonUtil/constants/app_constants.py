@@ -9,7 +9,7 @@ class AppConstants:
     MIN_PASSWORD_LENGTH = 8  # Minimum length for passwords
     MAX_PASSWORD_LENGTH = 20  # Maximum length for passwords
     COOKIE_PATH = "/"  # Path for the cookie
-    COOKIE_SAMESITE = "Strict"  # SameSite attribute for the cookie
+    COOKIE_SAMESITE = "None"  # SameSite attribute for the cookie - None for cross-origin requests
 
 
 class TaskStatus(enum.Enum):

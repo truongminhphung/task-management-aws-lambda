@@ -32,10 +32,10 @@ def get_default_headers():
     """
     return {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",  # Updated to match frontend origin
+        "Access-Control-Allow-Origin": "http://localhost:3001",  # Match exact frontend origin
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Cookie"
     }
 
 def generate_auth_cookie(jwt_token):
@@ -48,4 +48,5 @@ def generate_auth_cookie(jwt_token):
         f"Path={app_constants.COOKIE_PATH}; "
         f"Max-age={app_constants.JWT_EXPIRATION_TIME}; "
         f"SameSite={app_constants.COOKIE_SAMESITE}; "
+        "Secure; "  # Required when using SameSite=None
     )
