@@ -28,7 +28,10 @@ class ErrorMessages:
     TASK_CREATION_SUCCESS = "Task created successfully"
     MISSING_TASK_ID = "Task ID is required"
     TASK_NOT_FOUND = "Task not found"
+    TASK_UPDATE_FAILED = "Task update failed"
     TASK_DELETION_FAILED = "Task deletion failed"
+    MISSING_REQUEST_BODY = "Missing request body"
+    INVALID_DATE_FORMAT = "Invalid date format. Expected format: YYYY-MM-DD"
 
 # Singleton instance for convenience
 error_messages = ErrorMessages()

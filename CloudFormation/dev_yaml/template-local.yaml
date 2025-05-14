@@ -116,3 +116,22 @@ Resources:
             Method: DELETE
     Metadata:
       SamResourceId: DeleteTaskFunction
+
+  UpdateTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/tasks
+      Handler: update_task.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/tasks/{task_id}
+            Method: PATCH
+    Metadata:
+      SamResourceId: UpdateTaskFunction
