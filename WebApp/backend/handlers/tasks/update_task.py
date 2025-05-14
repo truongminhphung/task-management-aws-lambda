@@ -49,7 +49,10 @@ def lambda_handler(event, context):
             return create_error_response(http_status.UNAUTHORIZED, error_messages.JWT_INVALID)
         
         # Parse and validate request data
-        body = json.loads(event.get("body", "{}"))
+        try:
+            body = json.loads(event["body"])
+        except json.JSONDecodeError:
+            return create_error_response(http_status.BAD_REQUEST, error_messages.INVALID_JSON)
         if not body:
             return create_error_response(http_status.BAD_REQUEST, error_messages.MISSING_REQUEST_BODY)
         
