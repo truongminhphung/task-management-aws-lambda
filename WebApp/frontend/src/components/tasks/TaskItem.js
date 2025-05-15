@@ -11,28 +11,39 @@ const TaskItem = ({ task, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-4 hover:shadow-lg transition-shadow">
-      <div className="flex-1">
-        <h3 className="text-lg font-semibold text-gray-800">{task.description}</h3>
-        <p className="text-sm text-gray-500">Due: {task.due_date || 'No due date'}</p>
-        <p className="text-sm text-gray-500">Status: 
-          <span className={`ml-1 ${task.status === 'completed' ? 'text-green-600' : 'text-yellow-600'}`}>
-            {task.status}
-          </span>
-        </p>
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 bg-white shadow-md rounded-lg hover:shadow-lg transition-shadow">
+      <div className="flex-1 mb-3 sm:mb-0">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-800">{task.description}</h3>
+        <div className="flex flex-col sm:flex-row sm:gap-4 mt-1">
+          <p className="text-xs sm:text-sm text-gray-500">
+            Due: {task.due_date || 'No due date'}
+          </p>
+          <p className="text-xs sm:text-sm text-gray-500 flex items-center mt-1 sm:mt-0">
+            Status:
+            <span 
+              className={`ml-1 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                task.status === 'completed' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-yellow-100 text-yellow-800'
+              }`}
+            >
+              {task.status}
+            </span>
+          </p>
+        </div>
       </div>
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap gap-2 w-full sm:w-auto">
         <button
           onClick={handleStatusToggle}
-          className={`px-3 py-1 rounded-full text-white text-sm font-medium transition-colors ${
+          className={`flex-1 sm:flex-initial px-3 py-1 rounded-md text-white text-xs sm:text-sm font-medium transition-colors ${
             task.status === 'pending' ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
           }`}
         >
-          {task.status === 'pending' ? 'Mark as Done' : 'Mark as Pending'}
+          {task.status === 'pending' ? 'Complete' : 'Reopen'}
         </button>
         <button
           onClick={handleDelete}
-          className="px-3 py-1 bg-red-500 text-white rounded-full text-sm font-medium hover:bg-red-600 transition-colors"
+          className="flex-1 sm:flex-initial px-3 py-1 bg-red-500 text-white rounded-md text-xs sm:text-sm font-medium hover:bg-red-600 transition-colors"
         >
           Delete
         </button>
