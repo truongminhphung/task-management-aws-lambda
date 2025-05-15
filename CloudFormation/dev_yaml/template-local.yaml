@@ -132,6 +132,6 @@ Resources:
           Type: Api
           Properties:
             Path: /task-management/tasks/{task_id}
-            Method: PATCH
+            Method: PUT
     Metadata:
       SamResourceId: UpdateTaskFunction

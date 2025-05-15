@@ -2,7 +2,8 @@ import React from 'react';
 
 const TaskItem = ({ task, onUpdate, onDelete }) => {
   const handleStatusToggle = () => {
-    onUpdate(task.task_id, { ...task, status: task.status === 'pending' ? 'completed' : 'pending' });
+    // Only send the status field that's changing, not the entire task object
+    onUpdate(task.task_id, { status: task.status === 'pending' ? 'completed' : 'pending' });
   };
 
   const handleDelete = () => {
