@@ -84,14 +84,15 @@ const Home = () => {
   };
 
 return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">My Tasks</h1>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-3 sm:p-4 md:p-6">
+      {/* Responsive container with reasonable max-width but fills available space */}
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
+        {/* Header - responsive text size and padding */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6 md:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">My Tasks</h1>
           <button
             onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+            className="bg-red-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base"
           >
             Logout
           </button>
@@ -99,26 +100,38 @@ return (
 
         {/* Error Message */}
         {error && (
-          <p className="text-center text-red-500 mb-4">{error}</p>
+          <div className="bg-red-50 border-l-4 border-red-500 p-3 mb-4 rounded">
+            <p className="text-red-700">{error}</p>
+          </div>
         )}
 
-        {/* Add Task Form */}
-        <CreateTask onAddTask={handleAddTask} />
+        {/* Layout grid for larger screens */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+          {/* Add Task Form - takes full width on mobile, sidebar on desktop */}
+          <div className="lg:col-span-4 lg:sticky lg:top-4 lg:self-start">
+            <CreateTask onAddTask={handleAddTask} />
+          </div>
 
-        {/* Task List */}
-        <div className="space-y-4">
-          {tasks.length === 0 ? (
-            <p className="text-center text-gray-500">No tasks yet. Add one to get started!</p>
-          ) : (
-            tasks.map(task => (
-              <TaskItem
-                key={task.task_id}
-                task={task}
-                onUpdate={handleUpdateTask}
-                onDelete={handleDeleteTask}
-              />
-            ))
-          )}
+          {/* Task List - takes full width on mobile, main content on desktop */}
+          <div className="lg:col-span-8">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="text-xl font-semibold text-gray-700 mb-2 lg:mt-0">Your Tasks</h2>
+              {tasks.length === 0 ? (
+                <div className="bg-white p-6 rounded-lg shadow text-center">
+                  <p className="text-gray-500">No tasks yet. Add one to get started!</p>
+                </div>
+              ) : (
+                tasks.map(task => (
+                  <TaskItem
+                    key={task.task_id}
+                    task={task}
+                    onUpdate={handleUpdateTask}
+                    onDelete={handleDeleteTask}
+                  />
+                ))
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
