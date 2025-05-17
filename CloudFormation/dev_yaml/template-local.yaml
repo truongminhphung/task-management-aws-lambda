@@ -2,7 +2,44 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Local API and Lambda setup for testing
 
-
+Parameters:
+  DbHost:
+    Type: String
+    Default: "task_management_db"
+    Description: "Database host name"
+  
+  DbName:
+    Type: String
+    Default: "tasks-db"
+    Description: "Database name"
+  
+  DbUser:
+    Type: String
+    Default: "postgres"
+    Description: "Database user name"
+  
+  DbPassword:
+    Type: String
+    Default: "password"
+    NoEcho: true
+    Description: "Database password"
+  
+  DbPort:
+    Type: String
+    Default: "5432"
+    Description: "Database port"
+  
+  JwtSecret:
+    Type: String
+    Default: "K8pEr3Vx7Qz9JyB2sT5nM4cF1hG6aD0wL3iR8oUv"
+    NoEcho: true
+    Description: "JWT secret key"
+  
+  S3BucketName:
+    Type: String
+    Default: "task-management-bucket"
+    Description: "S3 bucket name for task management"
+  
 Globals:
   Api:
     Cors:
@@ -13,12 +50,12 @@ Globals:
   Function:
     Environment:
       Variables:
-        DB_HOST: "task_management_db"
-        DB_NAME: "tasks-db"
-        DB_USER: "postgres"
-        DB_PASSWORD: "password"
-        DB_PORT: "5432"
-        JWT_SECRET: "K8pEr3Vx7Qz9JyB2sT5nM4cF1hG6aD0wL3iR8oUv"
+        DB_HOST: !Ref DbHost
+        DB_NAME: !Ref DbName
+        DB_USER: !Ref DbUser
+        DB_PASSWORD: !Ref DbPassword
+        DB_PORT: !Ref DbPort
+        JWT_SECRET: !Ref JwtSecret
       
 Resources:
   LocalPythonLayer:

@@ -9,6 +9,17 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE user_profiles (
+    profile_id UUID PRIMARY KEY NOT NULL,
+    user_id UUID REFERENCES users(user_id) ON DELETE CASCADE UNIQUE,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    profile_image_url TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE tasks (
     task_id UUID PRIMARY KEY NOT NULL,
     user_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
