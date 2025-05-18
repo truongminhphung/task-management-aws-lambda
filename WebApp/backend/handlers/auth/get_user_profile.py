@@ -16,7 +16,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def lambda_hander(event, context):
+def lambda_handler(event, context):
     """
     AWS Lambda handler for GET /profile endpoint.
     Retrieves the user's profile information.
@@ -49,8 +49,8 @@ def lambda_hander(event, context):
         with get_cursor() as cursor:
             cursor.execute(
                 """SELECT u.email, u.username, up.profile_image_url 
-                "FROM users u LEFT JOIN user_profiles up ON u.user_id = up.user_id "
-                "WHERE u.user_id = %s""",
+                FROM users u LEFT JOIN user_profiles up ON u.user_id = up.user_id
+                WHERE u.user_id = %s""",
                 (user_id,)
             )
             user_profile = cursor.fetchone()
