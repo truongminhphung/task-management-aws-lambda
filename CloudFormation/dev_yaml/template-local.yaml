@@ -207,6 +207,6 @@ Resources:
           Type: Api
           Properties:
             Path: /task-management/user/profile
-            Method: PUT
+            Method: POST
     Metadata:
       SamResourceId: UploadUserProfileImageFunction
