@@ -72,11 +72,12 @@ def lambda_handler(event, context):
         else:
             profile_image_url = None
         
-        return create_success_response(http_status.OK, {
+        result = create_success_response(http_status.OK, {
             "email": email,
             "username": username,
             "profile_image_url": profile_image_url
         })
+        return result
     except Exception as e:
         logger.error(f"Error fetching user profile: {str(e)}")
         return create_error_response(http_status.INTERNAL_SERVER_ERROR, error_messages.INTERNAL_ERROR.format(str(e)))

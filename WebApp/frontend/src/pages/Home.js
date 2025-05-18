@@ -1,40 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateTask from '../components/tasks/CreateTask';
 import TaskItem from '../components/tasks/TaskItem';
-import { getTasks, createTask, updateTask, deleteTask } from '../services/api';
+import { getTasks, createTask, updateTask, deleteTask, getUserProfile, uploadUserProfileImage } from '../services/api';
 
 
-// const mockTasks = [
-//   {
-//     task_id: 1,
-//     description: "Buy groceries",
-//     due_date: "2025-04-15",
-//     status: "pending",
-//     created_at: "2025-04-01T10:00:00Z",
-//     updated_at: "2025-04-01T10:00:00Z",
-//   },
-//   {
-//     task_id: 2,
-//     description: "Finish project report",
-//     due_date: "2025-04-20",
-//     status: "pending",
-//     created_at: "2025-04-02T12:00:00Z",
-//     updated_at: "2025-04-02T12:00:00Z",
-//   },
-//   {
-//     task_id: 3,
-//     description: "Call dentist",
-//     due_date: "2025-04-10",
-//     status: "completed",
-//     created_at: "2025-03-30T09:00:00Z",
-//     updated_at: "2025-04-01T14:00:00Z",
-//   },
-// ];
+const DEFAULT_USER_PROFILE_IMAGE = 'https://www.gravatar.com/avatar/';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +25,26 @@ const Home = () => {
         setError(err.error || 'Failed to fetch tasks');
       }
     };
+
+    // Fetch user profile image data.profile && data.profile.profile_image_url
+    const fetchUserProfile = async () => {
+      try {
+        const data = await getUserProfile();
+        console.log('log User Profile:', data);
+        if (data.profile_image_url) {
+          console.log('data: ', data);
+          console.log('log User Profile Image:', data.profile_image_url);
+          setProfileImage(data.profile_image_url);
+        } else {
+          setProfileImage(DEFAULT_USER_PROFILE_IMAGE);
+        }
+      } catch (err) {
+        setError(err.error || 'Failed to fetch user profile');
+      }
+    };
+
     fetchTasks();
+    fetchUserProfile();
   }, []);
 
   const handleAddTask = async (newTask) => {
@@ -83,6 +80,25 @@ const Home = () => {
       .catch(err => console.error('Logout failed:', err));
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // convert image to base64
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64String = reader.result;
+      try {
+        const response = await uploadUserProfileImage(base64String);
+        setProfileImage(response.profile_image_url);
+        setIsDropDownOpen(false);
+      } catch (err) {
+        setError(err.error || 'Failed to upload image');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
 return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 p-3 sm:p-4 md:p-6">
       {/* Responsive container with reasonable max-width but fills available space */}
@@ -90,12 +106,38 @@ return (
         {/* Header - responsive text size and padding */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6 md:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">My Tasks</h1>
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base"
-          >
-            Logout
-          </button>
+          <div className="relative">
+            <img src={profileImage} 
+            alt="Profile" 
+            className="w-10 h-10 rounded-full cursor-pointer border-2 border-blue-500 hover:border-blue-600 transition-colors"
+            onClick={() => setIsDropDownOpen(!isDropDownOpen)}
+            />
+            {isDropDownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                <div className="py-2">
+                  <button
+                    onClick={() => fileInputRef.current.click()}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100"
+                  >
+                    Upload Profile Image
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+              ref={fileInputRef}
+            />
+          </div>
         </div>
 
         {/* Error Message */}
