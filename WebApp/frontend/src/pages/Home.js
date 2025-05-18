@@ -5,7 +5,7 @@ import TaskItem from '../components/tasks/TaskItem';
 import { getTasks, createTask, updateTask, deleteTask, getUserProfile, uploadUserProfileImage } from '../services/api';
 
 
-const DEFAULT_USER_PROFILE_IMAGE = 'https://www.gravatar.com/avatar/';
+const DEFAULT_USER_PROFILE_IMAGE = '/default_userprofile.png'; // Default image URL
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -30,10 +30,7 @@ const Home = () => {
     const fetchUserProfile = async () => {
       try {
         const data = await getUserProfile();
-        console.log('log User Profile:', data);
         if (data.profile_image_url) {
-          console.log('data: ', data);
-          console.log('log User Profile Image:', data.profile_image_url);
           setProfileImage(data.profile_image_url);
         } else {
           setProfileImage(DEFAULT_USER_PROFILE_IMAGE);
