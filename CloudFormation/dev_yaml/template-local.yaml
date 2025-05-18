@@ -206,7 +206,7 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /task-management/user/profile
+            Path: /task-management/user/profile/image
             Method: POST
     Metadata:
       SamResourceId: UploadUserProfileImageFunction
