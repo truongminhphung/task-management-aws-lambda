@@ -172,3 +172,41 @@ Resources:
             Method: PUT
     Metadata:
       SamResourceId: UpdateTaskFunction
+
+  GetUserProfileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/auth
+      Handler: get_user_profile.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/user/profile
+            Method: GET
+    Metadata:
+      SamResourceId: GetUserProfileFunction
+  
+  UploadUserProfileImageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/auth
+      Handler: upload_profile_image.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/user/profile
+            Method: PUT
+    Metadata:
+      SamResourceId: UploadUserProfileImageFunction
