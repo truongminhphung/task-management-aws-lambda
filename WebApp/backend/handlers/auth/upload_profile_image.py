@@ -17,7 +17,12 @@ logger.setLevel(logging.INFO)
 
 
 def process_image_data(image_data):
-    """Process and decode base64 image data."""
+    """Process and decode base64 image data.
+
+    input example: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/..."
+    output: /9j/4AAQSkZJRgABAQEAAAAAAAD/..."
+    This function removes the prefix and decodes the base64 string into bytes.
+    """
     try:
         # Remove "data:image/jpeg;base64," prefix and decode
         image_bytes = base64.b64decode(image_data.split(",")[1])
@@ -122,7 +127,7 @@ def lambda_handler(event, context):
         except ValueError:
             return create_error_response(http_status.INTERNAL_SERVER_ERROR, error_messages.PROFILE_UPDATE_FAILED)
         
-        return create_success_response(http_status.OK, {"message": "Profile image uploaded successfully.", "image_url": image_url})
+        return create_success_response(http_status.OK, {"message": "Profile image uploaded successfully.", "profile_image_url": image_url})
     
     except Exception as e:
         logger.error(f"Error uploading profile image: {str(e)}")

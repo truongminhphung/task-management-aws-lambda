@@ -45,3 +45,11 @@ VALUES (
     'testuser@gmail.com',
     'abc123456'
 );
+
+INSERT INTO user_profiles (profile_id, user_id, first_name, last_name)
+VALUES (
+    '8c7d6bcf-1cbf-4202-9729-8f0acd833c41',
+    'b613bb6c-77e8-439d-890c-f9203f6bc70a',
+    'John',
+    'Doe'
+);

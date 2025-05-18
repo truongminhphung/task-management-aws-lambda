@@ -90,3 +90,28 @@ export const deleteTask = async (taskId) => {
     }
 }
 
+export const getUserProfile = async () => {
+    try {
+        const response = await api.get('/user/profile');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        if (error.response) {
+            throw error.response.data;
+        }
+        throw error;
+    }
+};
+
+export const uploadUserProfileImage = async (imageData) => {
+    try {
+        const response = await api.post('/user/profile/image', { image: imageData });
+        return response.data;
+    } catch (error) {
+        console.error('Error uploading user profile image:', error);
+        if (error.response) {
+            throw error.response.data;
+        }
+        throw error;
+    }
+}
