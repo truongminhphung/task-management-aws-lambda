@@ -32,6 +32,9 @@ class ErrorMessages:
     TASK_DELETION_FAILED = "Task deletion failed"
     MISSING_REQUEST_BODY = "Missing request body"
     INVALID_DATE_FORMAT = "Invalid date format. Expected format: YYYY-MM-DD"
+    MISSING_IMAGE_DATA = "Profile image is required"
+    INVALID_IMAGE_DATA = "Invalid image data"
+    PROFILE_UPDATE_FAILED = "Profile update failed"
 
 # Singleton instance for convenience
 error_messages = ErrorMessages()

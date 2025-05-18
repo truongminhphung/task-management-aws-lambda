@@ -12,6 +12,7 @@ class Config:
 
     JWT_SECRET = os.environ.get("JWT_SECRET")
 
+    S3_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
 
     @classmethod
     def get_db_connection_string(cls):
