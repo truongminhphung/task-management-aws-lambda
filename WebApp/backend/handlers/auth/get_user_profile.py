@@ -16,7 +16,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
-def lambda_hander(event, context):
+def lambda_handler(event, context):
     """
     AWS Lambda handler for GET /profile endpoint.
     Retrieves the user's profile information.
