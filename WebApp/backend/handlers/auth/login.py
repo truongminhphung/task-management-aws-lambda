@@ -58,6 +58,7 @@ def lambda_handler(event, context):
 
         # Generate cookie and return the response
         cookie = generate_auth_cookie(jwt_token)
+        print("aaaaaaaaa")
         
         return create_success_response(
             http_status.OK,
