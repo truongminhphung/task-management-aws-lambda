@@ -98,6 +98,25 @@ Resources:
     Metadata:
       SamResourceId: LoginFunction
 
+  LogoutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../WebApp/backend/handlers/auth
+      Handler: logout.lambda_handler
+      Timeout: 500
+      Runtime: python3.12
+      Layers:
+        - !Ref LocalPythonLayer
+        - !Ref LocalLambdaCommonLayer
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /task-management/logout
+            Method: POST
+    Metadata:
+      SamResourceId: LogoutFunction
+
   CreateTaskFunction:
     Type: AWS::Serverless::Function
     Properties:
