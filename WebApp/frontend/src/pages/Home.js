@@ -11,6 +11,8 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -35,6 +37,8 @@ const Home = () => {
         } else {
           setProfileImage(DEFAULT_USER_PROFILE_IMAGE);
         }
+        setUserEmail(data.email)
+        setUserName(data.username)
       } catch (err) {
         setError(err.error || 'Failed to fetch user profile');
       }
@@ -110,18 +114,40 @@ return (
             onClick={() => setIsDropDownOpen(!isDropDownOpen)}
             />
             {isDropDownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                <div className="py-2">
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-10 overflow-hidden border border-gray-200">
+                {/* User info section with profile image */}
+                <div className="bg-blue-50 px-4 py-3 border-b border-gray-200">
+                  <div className="flex items-center space-x-3">
+                    <img src={profileImage} alt="Profile" className="w-12 h-12 rounded-full border-2 border-blue-500" />
+                    <div>
+                      <p className="font-medium text-gray-900">{userName || 'testuser'}</p>
+                      <p className="text-sm text-gray-600">{userEmail || 'testuser@gmail.com'}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Menu options */}
+                <div className="py-1">
                   <button
                     onClick={() => fileInputRef.current.click()}
-                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-100"
+                    className="flex items-center w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-50 transition-colors"
                   >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
                     Upload Profile Image
                   </button>
+                </div>
+                
+                {/* Logout section with separator */}
+                <div className="border-t border-gray-200">
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-100"
+                    className="flex items-center w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors"
                   >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
                     Logout
                   </button>
                 </div>
