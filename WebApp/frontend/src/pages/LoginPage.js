@@ -20,22 +20,17 @@ const LoginPage = () => {
         }
 
         try {
-            console.log('Login attempt with:', username);
             const response = await login(username, password);
-            
-            console.log('Login response:', response);
             
             // Check various possible token locations based on API response structure
             const token = response?.token || response?.data?.token || response?.auth_token;
             
             if (token) {
-                console.log('Token received, setting authentication');
                 authLogin(token);
                 setError(null); // Clear any previous errors
                 
                 // Use setTimeout to ensure state updates before navigation
                 setTimeout(() => {
-                    console.log('Navigating to:', from);
                     window.location.href = '/home'; // Direct browser navigation as fallback
                 }, 100);
             } else {

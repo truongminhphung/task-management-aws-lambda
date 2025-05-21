@@ -6,22 +6,17 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   
-  console.log('AuthProvider initialized');
   
   useEffect(() => {
     // Check authentication status on mount
     const checkAuthStatus = async () => {
       try {
-        console.log('Checking authentication status...');
         const token = localStorage.getItem('authToken');
-        console.log('Token found in storage:', !!token);
         
         // If token exists, set authenticated to true
         if (token) {
-          console.log('Setting authenticated to true');
           setIsAuthenticated(true);
         } else {
-          console.log('Setting authenticated to false');
           setIsAuthenticated(false);
         }
       } catch (error) {
@@ -37,10 +32,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token) => {
-    console.log('AuthContext login called with token:', token);
     localStorage.setItem('authToken', token);
     setIsAuthenticated(true);
-    console.log('Authentication state updated to:', true);
   };
 
   const logout = () => {

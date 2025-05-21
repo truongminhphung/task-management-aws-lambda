@@ -31,7 +31,6 @@ api.interceptors.response.use(
     error => {
         // If 401 Unauthorized, the token might have expired
         if (error.response && error.response.status === 401) {
-            console.log('Authentication error:', error.response.data);
             // Clear token and redirect to login
             localStorage.removeItem('authToken');
             window.location.href = '/';
@@ -42,11 +41,7 @@ api.interceptors.response.use(
 
 export const login = async (username, password) => {
     try {
-        console.log('API login call with:', username);
         const response = await api.post('/login', { username, password });
-        
-        console.log('API login raw response:', response);
-        console.log('API login response data:', response.data);
         
         // Try to extract token from various possible locations in the response
         const token = response.data?.token || response.data?.auth_token;
