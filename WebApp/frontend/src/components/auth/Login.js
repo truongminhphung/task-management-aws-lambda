@@ -25,13 +25,23 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate form fields
+    if (!username || !password) {
+      setError('Username and password are required');
+      return;
+    }
+    
     setError(''); // Clear previous errors
     setIsLoading(true);
     
     try {
+      // Pass the login attempt to the parent component
       await onLogin(username, password);
+      // No need to handle errors here as the parent will handle them
     } catch (err) {
-      setError(err.error || 'An error occurred during login');
+      // We'll still catch and display errors here as a fallback
+      setError(err.message || err.error || 'An error occurred during login');
     } finally {
       setIsLoading(false);
     }

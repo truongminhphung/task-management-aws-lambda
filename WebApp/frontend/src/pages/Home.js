@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateTask from '../components/tasks/CreateTask';
 import TaskItem from '../components/tasks/TaskItem';
-import { getTasks, createTask, updateTask, deleteTask, getUserProfile, uploadUserProfileImage } from '../services/api';
+import { getTasks, createTask, updateTask, deleteTask, getUserProfile, uploadUserProfileImage, logout as apiLogout } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 
 const DEFAULT_USER_PROFILE_IMAGE = '/default_userprofile.png'; // Default image URL
@@ -14,10 +15,19 @@ const Home = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
+  const { isAuthenticated } = useAuth();
+  
   useEffect(() => {
+    // Make sure the user is authenticated
+    if (!isAuthenticated) {
+      navigate('/');
+      return;
+    }
+    
     // Fetch tasks on component mount
     const fetchTasks = async () => {
       try {
@@ -46,7 +56,7 @@ const Home = () => {
 
     fetchTasks();
     fetchUserProfile();
-  }, []);
+  }, [isAuthenticated, navigate]);
 
   const handleAddTask = async (newTask) => {
     try {
@@ -75,11 +85,11 @@ const Home = () => {
     }
   };
 
-  const handleLogout = () => {
-    fetch('http://localhost:3000/logout', { method: 'POST', credentials: 'include' })
-      .then(() => navigate('/'))
-      .catch(err => console.error('Logout failed:', err));
-  };
+  // const handleLogout = () => {
+  //   fetch('http://localhost:3000/logout', { method: 'POST', credentials: 'include' })
+  //     .then(() => navigate('/'))
+  //     .catch(err => console.error('Logout failed:', err));
+  // };
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -98,6 +108,23 @@ const Home = () => {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  const { logout } = useAuth();
+  
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      // Call the API logout endpoint
+      await apiLogout();
+      // Update auth state using the context
+      logout();
+      // Navigate to login page
+      navigate('/');
+    } catch (err) {
+      setError(err.error || 'Failed to logout');
+      setIsLoggingOut(false);
+    }
   }
 
 return (
@@ -148,7 +175,7 @@ return (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    Logout
+                    {isLoggingOut ? 'Logging out...' : 'Logout'}
                   </button>
                 </div>
               </div>
